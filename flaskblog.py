@@ -1,6 +1,9 @@
 from flask import Flask, escape, request, render_template, url_for
-
+from forms import RegistrationForm, LoginForm
 app = Flask(__name__)#Double underscore name is a special variable in python that is just the name of the module
+
+#Set a secret key
+app.config['SECRET_KEY'] = 'b98e1a0947886f6fea80e7cd8cb99c2d'
 
 posts = [
     {
@@ -27,6 +30,11 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html', title='About')
+
+@app.route("/register")
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title = 'Register', form = form)
 
 if __name__ == '__main__':
     app.run(debug=True)
